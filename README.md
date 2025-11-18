@@ -5,6 +5,18 @@
 
 ![Main Dashboard](./screenshots/dashboard-view.png)
 
+## Download
+
+<div align="center">
+
+[![Download for macOS](https://img.shields.io/badge/Download-macOS%20(Apple%20Silicon)-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/advenimus/databoard/releases/latest/download/DataBoard-macOS-arm64.dmg)
+[![Download for Windows](https://img.shields.io/badge/Download-Windows%20x64-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/advenimus/databoard/releases/latest/download/DataBoard-Windows-x64-Setup.exe)
+[![Download for Linux](https://img.shields.io/badge/Download-Linux%20x64-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://github.com/advenimus/databoard/releases/latest/download/DataBoard-Linux-x64.AppImage)
+
+**Alternative Downloads:** [Windows (Portable ZIP)](https://github.com/advenimus/databoard/releases/latest/download/DataBoard-Windows-x64.zip) • [Linux (.deb)](https://github.com/advenimus/databoard/releases/latest/download/DataBoard-Linux-x64.deb)
+
+</div>
+
 ## Features
 
 ### 🔌 Multi-Database Support
