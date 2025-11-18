@@ -1,6 +1,5 @@
 # DataBoard
-
-![DataBoard Logo](./screenshots/icon.png)
+<img src="./screenshots/icon.png" alt="DataBoard Logo" style="max-width: 100px;" />
 
 **DataBoard** is a powerful desktop application for creating interactive SQL-powered dashboards. Connect to your SQL Server, MySQL, and PostgreSQL databases and visualize your data with beautiful charts, tables, and KPIs.
 
