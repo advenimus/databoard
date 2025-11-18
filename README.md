@@ -1,7 +1,7 @@
 # DataBoard
 ![Logo](./screenshots/logo.png)
 
-**DataBoard** is a powerful desktop application for creating interactive SQL-powered dashboards. Connect to your SQL Server, MySQL, and PostgreSQL databases and visualize your data with beautiful charts, tables, and KPIs.
+**DataBoard** is a powerful desktop application for creating interactive data dashboards. Connect to SQL Server, MySQL, PostgreSQL databases, or import CSV and Excel files to visualize your data with beautiful charts, tables, and KPIs. Features advanced query tools, dashboard parameters for dynamic filtering, and automatic file monitoring.
 
 ![Main Dashboard](./screenshots/feature.gif)
 
@@ -17,12 +17,15 @@
 
 </div>
 
-## Features
+## Key Features
 
-### 🔌 Multi-Database Support
+### 🔌 Multi-Database & File Support
 - **SQL Server** - Connect using standard authentication or Windows Integrated Authentication
 - **MySQL** - Support for MySQL 5.7+ and MariaDB
 - **PostgreSQL** - Full support for PostgreSQL 10+
+- **CSV Files** - Import and visualize data from CSV files with configurable delimiters, encodings, and headers
+- **Excel Files** - Support for .xlsx/.xls files with sheet selection and column type detection
+- **File Auto-Refresh** - Automatically detects and reloads data when source files change
 - Works seamlessly with remote databases via VPN or ZeroTier
 
 ### 📊 Rich Visualizations
@@ -37,9 +40,12 @@
 ### 🎨 Drag-and-Drop Dashboard Builder
 - Intuitive grid layout with 12-column responsive design
 - Resize and rearrange tiles with ease
-- Auto-refresh intervals for real-time data
+- Auto-refresh intervals for real-time data (configurable per dashboard and per tile)
 - Multiple dashboards with organization folders
+- **Favorites** - Mark frequently used dashboards as favorites for quick access
+- **Dashboard Parameters** - Add dynamic filters (text, number, date, dropdowns) that apply to all tiles
 - Save and restore custom layouts
+- Grid and list view modes for dashboard library
 
 ### 🔐 Secure Credential Management
 - Passwords encrypted using OS-level keychain integration
@@ -47,11 +53,39 @@
 - No plain-text credentials in configuration files
 - Connection pooling for optimal performance
 
-### ⚡ Real-Time Data
-- Configurable auto-refresh intervals per tile
+### ⚡ Advanced Query Features
+- **SQL Editor** - Syntax highlighting, autocomplete, and search powered by CodeMirror
+- **Parameterized Queries** - Use dashboard parameters in queries with template syntax
+- **Query History** - Complete audit log of all query executions
+- Configurable auto-refresh intervals per tile and per dashboard
 - Live query execution with connection pooling
 - Instant visualization updates
-- Query history and audit logging
+- Query testing with preview in tile editor
+
+## Advanced Features
+
+### 📁 Organization & Personalization
+- **Folders** - Organize dashboards into folders for better management
+- **Favorites** - Star your most-used dashboards for quick access
+- **Themes** - Light, dark, or automatic (follows system preference)
+- **View Modes** - Switch between grid and list views for your dashboard library
+
+### 🎯 Dynamic Dashboards with Parameters
+Create truly interactive dashboards with filter parameters:
+- Add text inputs, date pickers, and dropdown selectors
+- Populate dropdowns dynamically from database queries
+- Reference parameters in tile queries with `{{parameter_name}}` syntax
+- Apply filters across all tiles in a dashboard simultaneously
+- Set default values, validation rules, and group related parameters
+
+### 📂 File Data Sources
+Import and visualize data from local files:
+- **CSV Support**: Customizable delimiters, encodings (UTF-8, Windows-1252, ISO-8859-1)
+- **Excel Support**: Read .xlsx and .xls files, select specific sheets
+- **Auto-Type Detection**: Automatically detects column data types or set manually
+- **Live Updates**: Files are monitored for changes and data refreshes automatically
+- **Metadata Tracking**: File size and modification timestamps
+
 
 ## Screenshots
 
@@ -82,6 +116,7 @@ Customize your DataBoard experience with flexible configuration options.
 **Important for macOS users:**
 - First launch: Right-click the app and select "Open" to bypass Gatekeeper
 - You may need to grant Local Network permission in System Settings → Privacy & Security → Local Network
+- You may need to also run the command `sudo xattr -cr /Applications/DataBoard.app` to allow this app to run.
 
 ### Windows
 
@@ -106,7 +141,7 @@ Customize your DataBoard experience with flexible configuration options.
 - **Storage**: 500 MB available disk space
 
 ### Network Requirements
-- Access to remote SQL databases via:
+- Access to SQL databases via:
   - Direct network connection
   - VPN (e.g., OpenVPN, WireGuard)
   - ZeroTier or similar mesh networking
@@ -123,6 +158,7 @@ Customize your DataBoard experience with flexible configuration options.
    - Click "Dashboards" in the sidebar
    - Click "New Dashboard"
    - Give it a name and description
+   - Optionally, add dashboard parameters for dynamic filtering
 4. **Add tiles**:
    - Open your dashboard
    - Click "Add Tile"
@@ -130,13 +166,22 @@ Customize your DataBoard experience with flexible configuration options.
    - Choose visualization type (auto-detected by default)
    - Save and watch your data come to life!
 
-## Supported Database Types
+## Supported Data Sources
 
-| Database | Authentication | Notes |
-|----------|---------------|-------|
-| SQL Server | Standard, Windows Auth | Requires mssql 2012+ |
+| Type | Authentication/Options | Notes |
+|------|----------------------|-------|
+| SQL Server | Standard, Windows Integrated Auth | Requires SQL Server 2012+ |
 | MySQL | Standard | Supports MySQL 5.7+ and MariaDB |
 | PostgreSQL | Standard | Supports PostgreSQL 10+ |
+| CSV Files | File-based | Configurable delimiter (`,`, `;`, `\t`, `\|`), encoding, headers |
+| Excel Files | File-based | .xlsx/.xls support, sheet selection, column type detection |
+
+**CSV/Excel Features:**
+- Auto-detect column types or manually specify
+- Custom date formats
+- Skip rows (for files with metadata headers)
+- Auto-refresh when files change
+- File metadata tracking (size, modified date)
 
 ## Configuration
 
@@ -147,8 +192,31 @@ By default, DataBoard stores its data in:
 
 You can customize the database location in Settings → Database Path.
 
+### Appearance & Preferences
+- **Theme** - Light, dark, or system theme (follows OS preference)
+- **Dashboard View** - Grid or list view for dashboard library
+- **Auto-Collapse Sidebar** - Automatically collapse sidebar when not in use
+- **Custom Database Path** - Store application data in a custom location
+
 ### Query History
 All query executions are logged for audit purposes. View query history in the Query History section.
+
+### Dashboard Parameters
+Create dynamic dashboards with user-controlled filters:
+- **Parameter Types**: Text, Number, Date, Date Range, Single Select, Multi Select
+- **Static Options**: Define dropdown options manually
+- **Dynamic Options**: Populate dropdowns from database queries
+- **Template Syntax**: Reference parameters in queries using `{{parameter_name}}`
+- **Validation**: Set min/max values, regex patterns, required fields
+- **Grouping**: Organize parameters into collapsible groups
+
+**Example:**
+```sql
+SELECT * FROM sales
+WHERE region = '{{region}}'
+AND date >= '{{start_date}}'
+AND date <= '{{end_date}}'
+```
 
 ## Privacy & Security
 
@@ -189,16 +257,6 @@ DataBoard is released under the MIT License. See LICENSE file for details.
 ## Credits
 
 Created by **Advenimus Software**
-
-Built with:
-- [Electron](https://www.electronjs.org/) - Cross-platform desktop framework
-- [React](https://react.dev/) - UI framework
-- [Redux Toolkit](https://redux-toolkit.js.org/) - State management
-- [Recharts](https://recharts.org/) - Data visualization
-- [better-sqlite3](https://github.com/WiseLibs/better-sqlite3) - SQLite database
-- [mssql](https://github.com/tediousjs/node-mssql) - SQL Server driver
-- [mysql2](https://github.com/sidorares/node-mysql2) - MySQL driver
-- [pg](https://github.com/brianc/node-postgres) - PostgreSQL driver
 
 ---
 
