@@ -3,7 +3,7 @@
 
 **DataBoard** is a powerful desktop application for creating interactive SQL-powered dashboards. Connect to your SQL Server, MySQL, and PostgreSQL databases and visualize your data with beautiful charts, tables, and KPIs.
 
-![Main Dashboard](./screenshots/dashboard-view.png)
+![Main Dashboard](./screenshots/feature.gif)
 
 ## Download
 
